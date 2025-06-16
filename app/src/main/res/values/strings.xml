@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Foody Application</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ti_p_t_c_v_i_shopee">Tiếp tục với Shopee</string>
+    <string name="ti_p_t_c_v_i_google">Tiếp tục với Google</string>
+    <string name="ti_p_t_c_v_i_facebook">Tiếp tục với Facebook</string>
+    <string name="ho_c">HOẶC</string>
+    <string name="ng_nh_p_b_ng_m_t_kh_u">Đăng nhập bằng Mật khẩu</string>
+    <string name="ti_p_t_c">Tiếp tục</string>
+    <string name="s_i_n_tho_i">Số điện thoại</string>
+    <string name="app_logo">App Logo</string>
+    <string name="home">Home</string>
 </resources>

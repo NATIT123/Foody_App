@@ -3,7 +3,15 @@
     <style name="Base.Theme.FoodyApplication" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<!--        <item name="colorPrimary">@color/shopee_orange</item>-->
+        <item name="colorPrimaryVariant">#E64A2E</item> <!-- tùy chỉnh tone đậm -->
+        <item name="colorOnPrimary">#FFFFFF</item>
     </style>
+
+    <style name="ToolbarBoldText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 
     <style name="Theme.FoodyApplication" parent="Base.Theme.FoodyApplication" />
 </resources>

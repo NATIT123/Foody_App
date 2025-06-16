@@ -95,7 +95,7 @@ android {
     }
 }
 
-val hilt_version = "2.44"
+val hilt_version = "2.50"
 val retrofit_version = "2.9.0"
 val moshi_version = "1.11.0"
 val ok_httpclient_version = "4.9.0"
@@ -105,7 +105,7 @@ val room_version = "2.4.2"
 val constraintlayout_version = "2.1.3"
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.21")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.0")
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.7.1")

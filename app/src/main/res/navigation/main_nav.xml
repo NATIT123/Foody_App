@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.foodyapplication.ui.main.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/orderFragment"
+        android:name="com.example.foodyapplication.ui.main.order.OrderFragment"
+        android:label="Đơn hàng"
+        tools:layout="@layout/fragment_order" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.foodyapplication.ui.main.favorite.FavoriteFragment"
+        android:label="Đã thích"
+        tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.example.foodyapplication.ui.main.notification.NotificationFragment"
+        android:label="Thông báo"
+        tools:layout="@layout/fragment_notification" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.foodyapplication.ui.main.settings.SettingsFragment"
+        android:label="Tôi" />
+</navigation>
