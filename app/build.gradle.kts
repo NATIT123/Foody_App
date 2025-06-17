@@ -171,4 +171,8 @@ dependencies {
     androidTestImplementation("com.squareup.okhttp3:mockwebserver:$ok_httpclient_version")
     androidTestImplementation("com.google.dagger:hilt-android-testing:$hilt_version")
     kapt("com.google.dagger:hilt-android-compiler:$hilt_version")
+
+    //Circle Indicator
+    implementation("me.relex:circleindicator:1.3.2")
+    implementation ("me.relex:circleindicator:2.1.6")
 }
