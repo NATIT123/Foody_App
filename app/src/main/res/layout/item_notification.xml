@@ -1,0 +1,59 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="notificationItem"
+            type="com.example.foodyapplication.data.models.NotificationItem" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <ImageView
+            app:loadImage="@{notificationItem.imageResId}"
+            android:id="@+id/imgThumb"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_voucher" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{notificationItem.title}"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:text="@{notificationItem.description}"
+                android:textColor="#757575"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@{notificationItem.time}"
+                android:textColor="#BDBDBD"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

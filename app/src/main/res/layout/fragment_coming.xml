@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Layout rỗng nếu chưa có đơn -->
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/ic_empty_cart" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Quên chưa đặt món rồi nè bạn ơi?"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Bạn sẽ thấy các món đang chuẩn bị hoặc giao tại đây."
+        android:textColor="#888888" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Có thể bạn cũng thích"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerSuggestion"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="8dp" />
+</LinearLayout>

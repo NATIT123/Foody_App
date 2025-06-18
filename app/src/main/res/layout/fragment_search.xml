@@ -1,0 +1,80 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <!-- Thanh tìm kiếm -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_search"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="Back"
+            android:src="@drawable/ic_back" />
+
+        <EditText
+            android:id="@+id/edtSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:hint="Tìm món ăn, quán ăn"
+            android:padding="8dp" />
+
+        <ImageView
+            android:id="@+id/btnSearch"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="Search"
+            android:src="@drawable/ic_search" />
+    </LinearLayout>
+
+    <!-- Lịch sử tìm kiếm -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Lịch sử tìm kiếm"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/layoutHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+        <!-- Các Chip sẽ được thêm bằng code -->
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtDeleteHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginBottom="8dp"
+        android:text="Xoá"
+        android:textColor="@color/Red" />
+
+    <!-- Gợi ý tìm kiếm -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Gợi ý tìm kiếm"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerSuggest"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1" />
+</LinearLayout>
