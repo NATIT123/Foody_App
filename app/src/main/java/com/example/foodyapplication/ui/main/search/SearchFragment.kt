@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.foodyapplication.R
 import com.example.foodyapplication.databinding.FragmentSearchBinding
 
@@ -42,6 +44,32 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupHistory()
+        setupRecyclerView()
+
+        binding.txtDeleteHistory.setOnClickListener {
+            history.clear()
+            binding.layoutHistory.removeAllViews()
+        }
+
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        binding.btnSearch.setOnClickListener {
+            val query = binding.edtSearch.text.toString()
+            if (query.isNotBlank()) {
+                if (!history.contains(query)) {
+                    history.add(0, query)
+                    addHistoryChip(query)
+                }
+            }
+        }
+
+    }
+
     private fun setupHistory() {
         binding.layoutHistory.removeAllViews()
         history.forEach {
@@ -65,8 +93,8 @@ class SearchFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
-        binding.recyclerView.adapter = SuggestAdapter(suggestions)
+        binding.recyclerSuggest.layoutManager = GridLayoutManager(requireContext(), 3)
+        binding.recyclerSuggest.adapter = SuggestAdapter(suggestions)
     }
 
 

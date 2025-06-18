@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodyapplication.R
+import com.example.foodyapplication.activities.AuthActivity
 import com.example.foodyapplication.data.models.MenuItem
 import com.example.foodyapplication.databinding.FragmentSettingsBinding
 
@@ -36,6 +37,10 @@ class SettingsFragment : Fragment() {
 
         getMenuItems()
         loadData()
+
+        binding.btnLoginRegister.setOnClickListener {
+            startActivity(Intent(requireContext(), AuthActivity::class.java))
+        }
 
     }
 

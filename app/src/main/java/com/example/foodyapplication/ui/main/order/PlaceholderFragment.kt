@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 
 class PlaceholderFragment(private val title: String) : Fragment() {
+    constructor() : this("")
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
