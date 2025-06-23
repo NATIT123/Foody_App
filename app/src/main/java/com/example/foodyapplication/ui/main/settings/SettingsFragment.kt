@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodyapplication.R
@@ -42,10 +43,11 @@ class SettingsFragment : Fragment() {
             startActivity(Intent(requireContext(), AuthActivity::class.java))
         }
 
+
     }
 
     private fun getMenuItems() {
-        val context = requireContext() // hoặc `context!!` nếu chắc chắn không null
+        val context = requireContext()
 
         menuItems = listOf(
             MenuItem.Item(
@@ -117,6 +119,9 @@ class SettingsFragment : Fragment() {
 
     private fun listItemClicked(selectedItem: MenuItem) {
         if (selectedItem is MenuItem.Item) {
+            if (selectedItem.title == "Địa chỉ") {
+                findNavController().navigate(R.id.action_settingsFragment_to_deliveryAddressFragment)
+            }
             Toast.makeText(
                 requireContext(),
                 "Selected name is ${selectedItem.title}",

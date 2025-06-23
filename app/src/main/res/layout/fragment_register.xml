@@ -1,14 +1,310 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.auth.register.RegisterFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+        <variable
+            name="registerViewModel"
+            type="com.example.foodyapplication.ui.auth.register.RegisterViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:padding="16dp">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_marginBottom="24dp"
+                android:contentDescription="@string/app_logo"
+                android:src="@drawable/logo" />
+
+            <!-- Email -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email của bạn">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_email"
+                    android:drawablePadding="10dp"
+                    android:inputType="textEmailAddress"
+                    android:onTextChanged="@{registerViewModel::onEmailChanged}"
+                    android:text="@={registerViewModel.currentUser.email}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Email can not be empty"
+                android:textColor="@color/Red"
+                android:textSize="12sp"
+                android:visibility="@{registerViewModel.currentUser.validateEmail ? View.GONE : View.VISIBLE}" />
+
+            <!-- FullName -->
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="FullName của bạn">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtFullName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_account"
+                    android:drawablePadding="10dp"
+                    android:onTextChanged="@{registerViewModel::onFullNameChanged}"
+                    android:text="@={registerViewModel.currentUser.fullName}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="FullName can not be empty"
+                android:textColor="@color/Red"
+                android:textSize="12sp"
+                android:visibility="@{registerViewModel.currentUser.validateEmail ? View.GONE : View.VISIBLE}" />
+
+            <!-- Phone -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Phone của bạn">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_phone"
+                    android:drawablePadding="10dp"
+                    android:inputType="phone"
+                    android:onTextChanged="@{registerViewModel::onPhoneChanged}"
+                    android:text="@={registerViewModel.currentUser.phone}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Phone can not be empty"
+                android:textColor="@color/Red"
+                android:textSize="12sp"
+                android:visibility="@{registerViewModel.currentUser.validatePhone ? View.GONE : View.VISIBLE}" />
+
+            <!-- Address -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Address của bạn">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_address"
+                    android:drawablePadding="10dp"
+                    android:onTextChanged="@{registerViewModel::onAddressChanged}"
+                    android:text="@={registerViewModel.currentUser.address}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Address can not be empty"
+                android:textColor="@color/Red"
+                android:textSize="12sp"
+                android:visibility="@{registerViewModel.currentUser.validateAddress ? View.GONE : View.VISIBLE}" />
+
+            <!-- Password -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Mật khẩu">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_lock"
+                    android:drawablePadding="10dp"
+                    android:inputType="textPassword"
+                    android:onTextChanged="@{registerViewModel::onPasswordChanged}"
+                    android:text="@={registerViewModel.currentUser.password}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Password can not be empty"
+                android:textColor="@color/Red"
+                android:textSize="12sp"
+                android:visibility="@{registerViewModel.currentUser.validatePassword ? View.GONE : View.VISIBLE}" />
+
+            <!-- Confirm Password -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Nhập lại mật khẩu">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtConfirmPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_lock"
+                    android:drawablePadding="10dp"
+                    android:inputType="textPassword"
+                    android:onTextChanged="@{registerViewModel::onConfirmPasswordChanged}"
+                    android:text="@={registerViewModel.currentUser.confirmPassword}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Confirm Password can not be empty"
+                android:textColor="@color/Red"
+                android:textSize="12sp"
+                android:visibility="@{registerViewModel.currentUser.validateConfirmPassword ? View.GONE : View.VISIBLE}" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Password is not match"
+                android:textColor="@color/Red"
+                android:textSize="12sp"
+                android:visibility="@{registerViewModel.currentUser.isMatchPasswordAndConfirmPassword() ? View.GONE : View.VISIBLE}" />
+
+            <CheckBox
+                android:id="@+id/cbAgree"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tôi đồng ý với Chính sách quy định của Foody" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vui lòng chấp nhận điều khoản"
+                android:textColor="@color/Red"
+                android:textSize="12sp"
+                android:visibility="@{registerViewModel.currentUser.isMatchPasswordAndConfirmPassword() ? View.GONE : View.VISIBLE}" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:alpha="@{registerViewModel.currentUser.validateDataLogin ? 1.0f : 0.8f}"
+                android:background="@drawable/bg_login_rounded"
+                android:enabled="@{registerViewModel.currentUser.validateDataRegister}"
+                android:onClick="@{() -> registerViewModel.registerAction()}"
+                android:text='@{registerViewModel.currentUser.validateDataRegister ? "Đăng ký" : "Tiếp tục"}' />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="#CCC" />
+
+                <TextView
+                    android:id="@+id/tvOr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/ho_c" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="#CCC" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnGoogle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/bg_ripple_shopee"
+                android:drawableStart="@drawable/ic_google"
+                android:padding="15dp"
+                android:text="@string/ti_p_t_c_v_i_google" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnFacebook"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_ripple_shopee"
+                android:drawableStart="@drawable/ic_facebook"
+                android:padding="15dp"
+                android:text="@string/ti_p_t_c_v_i_facebook" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:text="Bằng cách đăng nhập hoặc đăng ký, bạn đồng ý với Chính sách quy định của Foody."
+                android:textSize="12sp" />
+
+
+            <TextView
+                android:id="@+id/tvLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="Đã có tài khoản tại Foody.vn? Đăng nhập"
+                android:textColor="@color/Blue"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Chúng tôi không sử dụng thông tin của bạn với bất kỳ mục đích nào. Bằng cách đăng ký, bạn đồng ý với Chính sách quy định của Foody."
+                android:textAlignment="center"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

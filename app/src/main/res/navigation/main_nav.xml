@@ -35,7 +35,11 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.foodyapplication.ui.main.settings.SettingsFragment"
-        android:label="Tôi" />
+        android:label="Tôi" >
+        <action
+            android:id="@+id/action_settingsFragment_to_deliveryAddressFragment"
+            app:destination="@id/deliveryAddressFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.foodyapplication.ui.main.search.SearchFragment"
@@ -44,4 +48,24 @@
         android:id="@+id/detailFragment"
         android:name="com.example.foodyapplication.ui.main.home.DetailFragment"
         android:label="DetailFragment" />
+    <fragment
+        android:id="@+id/deliveryAddressFragment"
+        android:name="com.example.foodyapplication.ui.main.settings.DeliveryAddressFragment"
+        android:label="DeliveryAddressFragment" >
+        <action
+            android:id="@+id/action_deliveryAddressFragment_to_addAddressFragment"
+            app:destination="@id/addAddressFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addAddressFragment"
+        android:name="com.example.foodyapplication.ui.main.settings.AddAddressFragment"
+        android:label="AddAddressFragment" >
+        <action
+            android:id="@+id/action_addAddressFragment_to_pickLocationFragment"
+            app:destination="@id/pickLocationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pickLocationFragment"
+        android:name="com.example.foodyapplication.ui.main.settings.PickLocationFragment"
+        android:label="PickLocationFragment" />
 </navigation>

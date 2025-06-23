@@ -34,6 +34,11 @@ android {
             applicationIdSuffix = ".dev"
             buildConfigField(
                 "String",
+                "BASE_MAPBOX_ACCESS_TOKEN",
+                "\"${apikeyProperties["BASE_MAPBOX_ACCESS_TOKEN_DEV"]}\""
+            )
+            buildConfigField(
+                "String",
                 "BASE_URL_JSON_PLACE_HOLDER",
                 "\"${apikeyProperties["BASE_URL_JSON_PLACE_HOLDER_DEV"]}\""
             )
@@ -47,6 +52,11 @@ android {
             applicationIdSuffix = ".staging"
             buildConfigField(
                 "String",
+                "BASE_MAPBOX_ACCESS_TOKEN",
+                "\"${apikeyProperties["BASE_MAPBOX_ACCESS_TOKEN_STAGING"]}\""
+            )
+            buildConfigField(
+                "String",
                 "BASE_URL_JSON_PLACE_HOLDER",
                 "\"${apikeyProperties["BASE_URL_JSON_PLACE_HOLDER_STAGING"]}\""
             )
@@ -58,6 +68,11 @@ android {
         }
         create("live") {
             applicationIdSuffix = ".live"
+            buildConfigField(
+                "String",
+                "BASE_MAPBOX_ACCESS_TOKEN",
+                "\"${apikeyProperties["BASE_MAPBOX_ACCESS_TOKEN_LIVE"]}\""
+            )
             buildConfigField(
                 "String",
                 "BASE_URL_JSON_PLACE_HOLDER",
@@ -174,5 +189,8 @@ dependencies {
 
     //Circle Indicator
     implementation("me.relex:circleindicator:1.3.2")
-    implementation ("me.relex:circleindicator:2.1.6")
+    implementation("me.relex:circleindicator:2.1.6")
+
+    //Maps
+    implementation("org.osmdroid:osmdroid-android:6.1.10")
 }
