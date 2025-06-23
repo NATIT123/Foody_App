@@ -3,9 +3,9 @@ package com.example.foodyapplication.base.activities
 import android.view.Gravity
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import com.fatherofapps.androidbase.base.dialogs.ConfirmDialog
-import com.fatherofapps.androidbase.base.dialogs.ErrorDialog
-import com.fatherofapps.androidbase.base.dialogs.NotifyDialog
+import com.example.foodyapplication.base.dialogs.ConfirmDialog
+import com.example.foodyapplication.base.dialogs.ErrorDialog
+import com.example.foodyapplication.base.dialogs.NotifyDialog
 
 open class BaseActivity : AppCompatActivity() {
 

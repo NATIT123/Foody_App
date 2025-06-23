@@ -7,7 +7,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.foodyapplication.R
 import com.example.foodyapplication.databinding.ActivityAuthBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding
     override fun onCreate(savedInstanceState: Bundle?) {

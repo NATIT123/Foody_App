@@ -1,28 +1,30 @@
-package com.example.foodyapplication.activities
-
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.foodyapplication.R
-import com.example.foodyapplication.common.AppSharePreference
+import com.example.foodyapplication.activities.AuthActivity
+import com.example.foodyapplication.activities.MainActivity
+import com.example.foodyapplication.common.TokenManager
 import com.example.foodyapplication.databinding.ActivitySplashBinding
+import com.example.foodyapplication.ui.auth.common.AuthViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@SuppressLint("CustomSplashScreen")
+@AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
-
 
     private lateinit var binding: ActivitySplashBinding
 
     @Inject
-    lateinit var appSharePreference: AppSharePreference
+    lateinit var tokenManager: TokenManager
+
+    private val authViewModel: AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,33 +32,19 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        authViewModel.user.observe(this@SplashActivity) { account ->
+            if (account != null) goToMain() else goToLogin()
+        }
+
         lifecycleScope.launch {
             delay(500)
-            val token = appSharePreference.getToken()
+            val token = tokenManager.getToken()
             if (token.isNullOrEmpty()) {
                 goToLogin()
             } else {
-                fetchAccountAndNavigate(token)
+                authViewModel.getUser()
             }
-        }
-
-
-    }
-
-    private suspend fun fetchAccountAndNavigate(token: String) {
-        try {
-            val account = withContext(Dispatchers.IO) {
-                // Giả sử dùng Retrofit
-                val api = ApiClient.create()
-                api.getMe("Bearer $token")
-            }
-            if (account.isSuccessful) {
-                goToMain()
-            } else {
-                goToLogin()
-            }
-        } catch (e: Exception) {
-            goToLogin()
         }
     }
 
@@ -69,6 +57,4 @@ class SplashActivity : AppCompatActivity() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
-
-
 }

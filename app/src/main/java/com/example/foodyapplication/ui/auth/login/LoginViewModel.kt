@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.foodyapplication.base.viewmodel.BaseViewModel
 import com.example.foodyapplication.common.Event
+import com.example.foodyapplication.common.TokenManager
 import com.example.foodyapplication.data.modelJson.User.User
 import com.example.foodyapplication.data.repositories.UserRepository
 import com.example.foodyapplication.data.models.User as UserModel
@@ -14,7 +15,10 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val userRepository: UserRepository) :
+class LoginViewModel @Inject constructor(
+    private val userRepository: UserRepository,
+    private val tokenManager: TokenManager
+) :
     BaseViewModel() {
 
 
@@ -36,7 +40,9 @@ class LoginViewModel @Inject constructor(private val userRepository: UserReposit
     private fun loginUser(user: UserModel) {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
-            _user.postValue(userRepository.login())
+            val loginResponse = userRepository.login()
+            _user.postValue(loginResponse.data.user)
+            tokenManager.saveToken(loginResponse.access_token)
             _loginUserSuccess.postValue(Event(true))
         }
         registerJobFinish()
@@ -75,8 +81,6 @@ class LoginViewModel @Inject constructor(private val userRepository: UserReposit
             _currentUser.postValue(user)
         }
     }
-
-
 
 
 }

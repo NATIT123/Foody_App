@@ -1,8 +1,4 @@
-
-
-import com.example.foodyapplication.base.network.BaseNetworkException
-import com.example.foodyapplication.base.network.BaseService
-import com.example.foodyapplication.base.network.NetworkResult
+package com.example.foodyapplication.base.network
 import retrofit2.Response
 
 open class BaseRemoteService : BaseService() {

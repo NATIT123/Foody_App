@@ -1,6 +1,8 @@
 package com.example.foodyapplication.di
 
 import com.example.foodyapplication.BuildConfig
+import com.example.foodyapplication.base.network.AuthInterceptor
+import com.example.foodyapplication.data.apis.UserAPI
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -18,47 +20,39 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
 
-//    @Provides
-//    fun provideCustomerAPI(@Named("MainSite") retrofit: Retrofit): CustomerAPI {
-//        return retrofit.create(CustomerAPI::class.java)
-//    }
+
+    @Singleton
+    @Provides
+    fun provideStackOverFlowApi(@Named("UserSite") retrofit: Retrofit): UserAPI {
+        return retrofit.create(UserAPI::class.java)
+    }
 
 
     @Provides
     @Singleton
-    @Named("JsonPlaceHolderSite")
-    fun provideRetrofitJsonPlaceHolderSite(
+    @Named("UserSite")
+    fun provideRetrofitUserSite(
         okHttpClient: OkHttpClient,
         moshiConverterFactory: MoshiConverterFactory
     ): Retrofit {
 
         return Retrofit.Builder().addConverterFactory(moshiConverterFactory)
-            .baseUrl(BuildConfig.BASE_URL_JSON_PLACE_HOLDER)
+            .baseUrl(BuildConfig.BASE_URL_USER)
             .client(okHttpClient)
             .build()
     }
 
-    @Provides
-    @Singleton
-    @Named("StackOverFlowSite")
-    fun provideRetrofitStackOverFlowSite(
-        okHttpClient: OkHttpClient,
-        moshiConverterFactory: MoshiConverterFactory
-    ): Retrofit {
-        return Retrofit.Builder().addConverterFactory(moshiConverterFactory)
-            .baseUrl(BuildConfig.BASE_URL_STACK_OVER_FLOW)
-            .client(okHttpClient)
-            .build()
-    }
 
     @Provides
     @Singleton
     fun provideOKHttpClient(
-        httpLoggingInterceptor: HttpLoggingInterceptor
+        httpLoggingInterceptor: HttpLoggingInterceptor,
+        authInterceptor: AuthInterceptor
     ): OkHttpClient {
         val builder = OkHttpClient.Builder()
 
         builder.interceptors().add(httpLoggingInterceptor)
+        builder.addInterceptor(authInterceptor)
         return builder.build()
     }
 

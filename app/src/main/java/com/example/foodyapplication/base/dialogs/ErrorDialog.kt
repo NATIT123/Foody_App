@@ -7,7 +7,6 @@ import android.view.Window
 import android.widget.Button
 import android.widget.TextView
 import com.example.foodyapplication.R
-import com.fatherofapps.androidbase.R
 
 class ErrorDialog (
     context: Context,

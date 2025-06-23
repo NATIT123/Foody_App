@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.text.HtmlCompat
 import com.example.foodyapplication.R
-import com.fatherofapps.androidbase.R
 
 class NotifyDialog (
     context: Context,

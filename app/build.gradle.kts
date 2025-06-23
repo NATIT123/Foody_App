@@ -34,8 +34,8 @@ android {
             applicationIdSuffix = ".dev"
             buildConfigField(
                 "String",
-                "BASE_MAPBOX_ACCESS_TOKEN",
-                "\"${apikeyProperties["BASE_MAPBOX_ACCESS_TOKEN_DEV"]}\""
+                "BASE_URL_USER",
+                "\"${apikeyProperties["BASE_URL_USER_DEV"]}\""
             )
             buildConfigField(
                 "String",
@@ -52,8 +52,8 @@ android {
             applicationIdSuffix = ".staging"
             buildConfigField(
                 "String",
-                "BASE_MAPBOX_ACCESS_TOKEN",
-                "\"${apikeyProperties["BASE_MAPBOX_ACCESS_TOKEN_STAGING"]}\""
+                "BASE_URL_USER",
+                "\"${apikeyProperties["BASE_URL_USER_STAGING"]}\""
             )
             buildConfigField(
                 "String",
@@ -70,8 +70,8 @@ android {
             applicationIdSuffix = ".live"
             buildConfigField(
                 "String",
-                "BASE_MAPBOX_ACCESS_TOKEN",
-                "\"${apikeyProperties["BASE_MAPBOX_ACCESS_TOKEN_LIVE"]}\""
+                "BASE_URL_USER",
+                "\"${apikeyProperties["BASE_URL_USER_LIVE"]}\""
             )
             buildConfigField(
                 "String",

@@ -15,7 +15,7 @@ class UserRepository @Inject constructor(
     suspend fun login() = withContext(dispatcher) {
         when (val result = userRemoteService.login()) {
             is NetworkResult.Success -> {
-                result.data.data.user
+                result.data
             }
 
             is NetworkResult.Error -> {
@@ -28,6 +28,18 @@ class UserRepository @Inject constructor(
         when (val result = userRemoteService.login()) {
             is NetworkResult.Success -> {
                 result.data.data.user
+            }
+
+            is NetworkResult.Error -> {
+                throw result.exception
+            }
+        }
+    }
+
+    suspend fun getMe() = withContext(dispatcher) {
+        when (val result = userRemoteService.getMe()) {
+            is NetworkResult.Success -> {
+                result.data
             }
 
             is NetworkResult.Error -> {
