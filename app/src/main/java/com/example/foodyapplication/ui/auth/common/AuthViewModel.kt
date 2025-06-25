@@ -1,31 +1,63 @@
 package com.example.foodyapplication.ui.auth.common
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.foodyapplication.base.viewmodel.BaseViewModel
 import com.example.foodyapplication.common.Event
-import com.example.foodyapplication.data.modelJson.User.User
+import com.example.foodyapplication.common.TokenManager
+import com.example.foodyapplication.data.modelJson.user.User
 import com.example.foodyapplication.data.repositories.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.example.foodyapplication.data.models.User as UserModel
 
 @HiltViewModel
-class AuthViewModel @Inject constructor(private val userRepository: UserRepository) :
+class AuthViewModel @Inject constructor(
+    private val userRepository: UserRepository,
+    private val tokenManager: TokenManager,
+) :
     BaseViewModel() {
-    private val _user = MutableLiveData<User>()
+    private val _user = MutableLiveData<User?>()
 
-    val user: LiveData<User>
+    val user: LiveData<User?>
         get() = _user
 
-    fun getUser() {
+    private var _logoutSuccess = MutableLiveData<Event<Boolean>>()
+    val logoutSuccess: LiveData<Event<Boolean>>
+        get() = _logoutSuccess
+
+    fun getInfoUser() {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
-            val userResponse = userRepository.getMe()
-            _user.postValue(userResponse.data.user)
+            try {
+                val userResponse = userRepository.getMe()
+                Log.d("MyApp", "Full response: $userResponse")
+                Log.d("MyApp", "Inner user: ${userResponse.data.data}")
+
+                val user = userResponse.data.data
+                _user.postValue(user)
+            } catch (e: Exception) {
+                Log.e("MyApp", "Error getting user: ${e.message}", e)
+            }
         }
         registerJobFinish()
     }
+
+    fun logOut() {
+        showLoading(true)
+        parentJob = viewModelScope.launch(handler) {
+            try {
+                userRepository.logOut()
+                _user.postValue(null)
+                tokenManager.clearToken()
+                _logoutSuccess.postValue(Event(true))
+            } catch (e: Exception) {
+                Log.e("MyApp", "Error getting user: ${e.message}", e)
+            }
+        }
+        registerJobFinish()
+    }
+
 }

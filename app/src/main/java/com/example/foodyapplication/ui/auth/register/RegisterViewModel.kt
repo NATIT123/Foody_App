@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.foodyapplication.base.viewmodel.BaseViewModel
 import com.example.foodyapplication.common.Event
-import com.example.foodyapplication.data.modelJson.User.User
+import com.example.foodyapplication.data.modelJson.user.User
 import com.example.foodyapplication.data.repositories.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -35,7 +35,7 @@ class RegisterViewModel @Inject constructor(private val userRepository: UserRepo
     private fun registerUser(user: UserModel) {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
-            _user.postValue(userRepository.register())
+            _user.postValue(userRepository.register(user))
             _registerUserSuccess.postValue(Event(true))
         }
         registerJobFinish()

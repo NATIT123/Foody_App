@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_deliveryAddressFragment"
             app:destination="@id/deliveryAddressFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -68,4 +71,23 @@
         android:id="@+id/pickLocationFragment"
         android:name="com.example.foodyapplication.ui.main.settings.PickLocationFragment"
         android:label="PickLocationFragment" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.example.foodyapplication.ui.main.settings.SettingFragment"
+        android:label="SettingFragment" >
+        <action
+            android:id="@+id/action_settingFragment_to_userInfoFragment"
+            app:destination="@id/userInfoFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userInfoFragment"
+        android:name="com.example.foodyapplication.ui.main.settings.UserInfoFragment"
+        android:label="UserInfoFragment" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.example.foodyapplication.ui.main.changepassword.ChangePasswordFragment"
+        android:label="ChangePasswordFragment" />
 </navigation>

@@ -1,5 +1,6 @@
 package com.example.foodyapplication.ui.auth.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -10,8 +11,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.foodyapplication.R
+import com.example.foodyapplication.activities.MainActivity
 import com.example.foodyapplication.base.fragment.BaseFragment
 import com.example.foodyapplication.common.AppSharePreference
+import com.example.foodyapplication.common.EventObserver
 import com.example.foodyapplication.common.TokenManager
 import com.example.foodyapplication.databinding.FragmentLoginBinding
 import com.example.foodyapplication.ui.auth.common.AuthViewModel
@@ -23,8 +26,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class LoginFragment : BaseFragment() {
 
-    private val viewModel: LoginViewModel by viewModels()
-
+    private val viewModel by viewModels<LoginViewModel>()
 
     private lateinit var binding: FragmentLoginBinding
 
@@ -32,6 +34,7 @@ class LoginFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        viewModel.initUser()
 
     }
 
@@ -39,8 +42,9 @@ class LoginFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentLoginBinding.inflate(inflater)
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.loginViewModel = viewModel
         return binding.root
     }
 
@@ -50,16 +54,20 @@ class LoginFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         binding.tvForgotPassword.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
         }
 
-        //Listen exception event
+        viewModel.loginUserSuccess.observe(viewLifecycleOwner, EventObserver { isSuccess ->
+            if (isSuccess) {
+                val intent = Intent(requireActivity(), MainActivity::class.java)
+                startActivity(intent)
+            }
+        })
+//        Listen exception event
         registerAllExceptionEvent(viewModel, viewLifecycleOwner)
         //when show loading is false, process bar is hide
         registerObserverLoadingEvent(viewModel, viewLifecycleOwner)
-
     }
 
 

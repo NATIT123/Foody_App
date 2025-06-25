@@ -1,57 +1,96 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <data>
+
+        <variable
+            name="authViewModel"
+            type="com.example.foodyapplication.ui.auth.common.AuthViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <!-- Header -->
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/shopee_orange"
-            android:padding="16dp">
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/circle_background"
-                android:scaleType="centerCrop"
-                android:src="@drawable/account_circle_24px" />
-
-            <TextView
-                android:id="@+id/btnLoginRegister"
-                android:layout_width="wrap_content"
+            <!-- Header -->
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerInParent="true"
-                android:layout_marginStart="16dp"
-                android:background="@drawable/bg_login_button"
+                android:background="@color/shopee_orange"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/circle_background"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/account_circle_24px"
+                    app:loadAvatar="@{authViewModel.user.photo}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_toStartOf="@id/btnLoginRegister"
+                    android:layout_toEndOf="@+id/avatar"
+                    android:text="@{authViewModel.user.fullname}"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/btnLoginRegister"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/bg_login_button"
+                    android:padding="8dp"
+                    android:text="Đăng nhập / Đăng ký"
+                    android:textColor="@color/shopee_orange"
+                    android:visibility="@{authViewModel.user != null ? View.GONE:View.VISIBLE}" />
+            </RelativeLayout>
+
+            <!-- RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerMenu"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:nestedScrollingEnabled="false" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/bg_login_rounded"
+
+                android:text='Đăng xuất'
+                android:textColor="@color/white" />
+
+            <!-- Footer -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
                 android:padding="8dp"
-                android:text="Đăng nhập / Đăng ký"
-                android:textColor="@color/shopee_orange" />
-        </RelativeLayout>
-
-        <!-- RecyclerView -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerMenu"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:nestedScrollingEnabled="false" />
-
-        <!-- Footer -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="Phiên bản 7.45.0\nFoody Corporation"
-            android:textSize="12sp" />
-    </LinearLayout>
-</ScrollView>
+                android:text="Phiên bản 7.45.0\nFoody Corporation"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </ScrollView>
+</layout>

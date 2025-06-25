@@ -1,12 +1,12 @@
+package com.example.foodyapplication.activities
+
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.foodyapplication.activities.AuthActivity
-import com.example.foodyapplication.activities.MainActivity
 import com.example.foodyapplication.common.TokenManager
 import com.example.foodyapplication.databinding.ActivitySplashBinding
 import com.example.foodyapplication.ui.auth.common.AuthViewModel
@@ -24,7 +24,6 @@ class SplashActivity : AppCompatActivity() {
     @Inject
     lateinit var tokenManager: TokenManager
 
-    private val authViewModel: AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,17 +32,14 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        authViewModel.user.observe(this@SplashActivity) { account ->
-            if (account != null) goToMain() else goToLogin()
-        }
 
         lifecycleScope.launch {
-            delay(500)
+            delay(3000)
             val token = tokenManager.getToken()
             if (token.isNullOrEmpty()) {
                 goToLogin()
             } else {
-                authViewModel.getUser()
+                goToMain()
             }
         }
     }

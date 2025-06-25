@@ -1,6 +1,7 @@
-package com.example.foodyapplication.data.modelJson.User
+package com.example.foodyapplication.data.modelJson.user
 
 data class User(
+
     val _id: String,
     val active: Boolean,
     val address: String,

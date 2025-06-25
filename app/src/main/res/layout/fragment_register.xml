@@ -78,7 +78,7 @@
                 android:text="FullName can not be empty"
                 android:textColor="@color/Red"
                 android:textSize="12sp"
-                android:visibility="@{registerViewModel.currentUser.validateEmail ? View.GONE : View.VISIBLE}" />
+                android:visibility="@{registerViewModel.currentUser.validateFullName ? View.GONE : View.VISIBLE}" />
 
             <!-- Phone -->
             <com.google.android.material.textfield.TextInputLayout

@@ -3,6 +3,7 @@ package com.example.foodyapplication.di
 import com.example.foodyapplication.BuildConfig
 import com.example.foodyapplication.base.network.AuthInterceptor
 import com.example.foodyapplication.data.apis.UserAPI
+import com.google.gson.GsonBuilder
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -12,6 +13,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
@@ -33,10 +35,11 @@ class NetworkModule {
     @Named("UserSite")
     fun provideRetrofitUserSite(
         okHttpClient: OkHttpClient,
-        moshiConverterFactory: MoshiConverterFactory
+        moshiConverterFactory: MoshiConverterFactory,
+        gsonConverterFactory: GsonConverterFactory
     ): Retrofit {
 
-        return Retrofit.Builder().addConverterFactory(moshiConverterFactory)
+        return Retrofit.Builder().addConverterFactory(gsonConverterFactory)
             .baseUrl(BuildConfig.BASE_URL_USER)
             .client(okHttpClient)
             .build()
@@ -70,5 +73,16 @@ class NetworkModule {
         val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
         return MoshiConverterFactory.create(moshi)
     }
+
+    @Provides
+    @Singleton
+    fun provideGsonConverterFactory(): GsonConverterFactory {
+        val gson = GsonBuilder()
+            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+            .create()
+
+        return GsonConverterFactory.create(gson)
+    }
+
 
 }

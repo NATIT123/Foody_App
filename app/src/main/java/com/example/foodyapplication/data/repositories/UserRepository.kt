@@ -1,6 +1,7 @@
 package com.example.foodyapplication.data.repositories
 
 import com.example.foodyapplication.base.network.NetworkResult
+import com.example.foodyapplication.data.models.User
 import com.example.foodyapplication.data.services.UserRemoteService
 import com.example.foodyapplication.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
@@ -12,8 +13,8 @@ class UserRepository @Inject constructor(
     @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) {
 
-    suspend fun login() = withContext(dispatcher) {
-        when (val result = userRemoteService.login()) {
+    suspend fun login(user: User) = withContext(dispatcher) {
+        when (val result = userRemoteService.login(user)) {
             is NetworkResult.Success -> {
                 result.data
             }
@@ -24,8 +25,8 @@ class UserRepository @Inject constructor(
         }
     }
 
-    suspend fun register() = withContext(dispatcher) {
-        when (val result = userRemoteService.login()) {
+    suspend fun register(user: User) = withContext(dispatcher) {
+        when (val result = userRemoteService.login(user)) {
             is NetworkResult.Success -> {
                 result.data.data.user
             }
@@ -38,6 +39,18 @@ class UserRepository @Inject constructor(
 
     suspend fun getMe() = withContext(dispatcher) {
         when (val result = userRemoteService.getMe()) {
+            is NetworkResult.Success -> {
+                result.data
+            }
+
+            is NetworkResult.Error -> {
+                throw result.exception
+            }
+        }
+    }
+
+    suspend fun logOut() = withContext(dispatcher) {
+        when (val result = userRemoteService.logOut()) {
             is NetworkResult.Success -> {
                 result.data
             }

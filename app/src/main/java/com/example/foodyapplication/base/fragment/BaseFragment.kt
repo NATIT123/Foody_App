@@ -8,8 +8,9 @@ import com.example.foodyapplication.base.activities.BaseActivity
 import com.example.foodyapplication.base.network.BaseNetworkException
 import com.example.foodyapplication.base.viewmodel.BaseViewModel
 import com.example.foodyapplication.common.EventObserver
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 open class BaseFragment : Fragment() {
 
     protected fun navigateToPage(actionId: Int){
