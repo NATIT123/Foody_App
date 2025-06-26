@@ -26,16 +26,9 @@ class RegisterViewModel @Inject constructor(private val userRepository: UserRepo
         get() = _currentUser
 
 
-    private val _user = MutableLiveData<User>()
-
-    val user: LiveData<User>
-        get() = _user
-
-
     private fun registerUser(user: UserModel) {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
-            _user.postValue(userRepository.register(user))
             _registerUserSuccess.postValue(Event(true))
         }
         registerJobFinish()

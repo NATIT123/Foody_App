@@ -31,11 +31,6 @@ class LoginViewModel @Inject constructor(
         get() = _currentUser
 
 
-    private val _user = MutableLiveData<User>()
-
-    val user: LiveData<User>
-        get() = _user
-
 
     fun initUser() {
         _currentUser.postValue(UserModel())
@@ -46,7 +41,6 @@ class LoginViewModel @Inject constructor(
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
             val loginResponse = userRepository.login(user)
-            _user.postValue(loginResponse.data.user)
             tokenManager.saveToken(loginResponse.access_token)
             _loginUserSuccess.postValue(Event(true))
         }

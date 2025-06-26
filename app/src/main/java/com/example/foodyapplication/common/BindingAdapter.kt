@@ -37,7 +37,7 @@ fun loadAvatar(view: ImageView, path: String?) {
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.placeholder)
-                    .error(R.drawable.error_image)
+                    .error(R.drawable.ic_account)
             )
             .into(view)
     } else {

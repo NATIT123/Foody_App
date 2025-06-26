@@ -89,5 +89,14 @@
     <fragment
         android:id="@+id/changePasswordFragment"
         android:name="com.example.foodyapplication.ui.main.changepassword.ChangePasswordFragment"
-        android:label="ChangePasswordFragment" />
+        android:label="ChangePasswordFragment" >
+        <action
+            android:id="@+id/action_changePasswordFragment_to_forgotPasswordFragment2"
+            app:destination="@id/forgotPasswordFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment2"
+        android:name="com.example.foodyapplication.ui.auth.forgotpassword.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" />
 </navigation>

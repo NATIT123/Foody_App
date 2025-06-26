@@ -1,27 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:padding="16dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/avatar"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@drawable/circle_orange_bg"
-        android:gravity="center"
-        android:text="tu"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+    <data>
 
-    <TextView
-        android:id="@+id/tvChangeAvatar"
-        android:layout_width="wrap_content"
+        <variable
+            name="avatarUrl"
+            type="String" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Đổi hình đại diện"
-        android:textColor="@color/shopee_orange" />
-</LinearLayout>
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/circle_orange_bg"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:loadAvatar="@{avatarUrl}" />
+
+        <TextView
+            android:id="@+id/tvChangeAvatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="2"
+            android:gravity="end"
+            android:text="Đổi hình đại diện"
+            android:textColor="@color/shopee_orange" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_arrow_right"
+            android:visibility="visible" />
+    </LinearLayout>
+</layout>

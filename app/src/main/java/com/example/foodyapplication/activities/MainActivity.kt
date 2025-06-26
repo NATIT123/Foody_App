@@ -8,6 +8,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.foodyapplication.R
 import com.example.foodyapplication.common.TokenManager
@@ -31,6 +32,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         lifecycleScope.launch {
             delay(3000)
             val token = tokenManager.getToken()
@@ -48,15 +51,28 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
+        setSupportActionBar(binding.toolbar)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.mainContainter) as NavHostFragment
         val navController = navHostFragment.navController
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.homeFragment,
+                R.id.favoriteFragment,
+                R.id.notificationFragment,
+                R.id.settingsFragment,
+                R.id.orderFragment
+            )
+        )
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         binding.bottomNavigationView.setupWithNavController(navController)
+
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.searchFragment, R.id.detailFragment, R.id.deliveryAddressFragment, R.id.addAddressFragment -> {
+                R.id.searchFragment, R.id.detailFragment, R.id.deliveryAddressFragment,
+                R.id.addAddressFragment, R.id.userInfoFragment,
+                R.id.changePasswordFragment, R.id.settingFragment,R.id.forgotPasswordFragment2 -> {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
 
@@ -64,6 +80,10 @@ class MainActivity : AppCompatActivity() {
                     binding.bottomNavigationView.visibility = View.VISIBLE
                 }
             }
+        }
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            supportActionBar?.title = destination.label
         }
     }
 

@@ -40,7 +40,6 @@ class SettingsFragment : BaseFragment() {
         binding = FragmentSettingsBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.authViewModel = authViewModel
-        // Inflate the layout for this fragment
         return binding.root
     }
 
@@ -51,6 +50,19 @@ class SettingsFragment : BaseFragment() {
 
         getMenuItems()
         loadData()
+
+        authViewModel.user.observe(viewLifecycleOwner) { user ->
+            if (user != null) {
+                menuItems.add(
+                    MenuItem.Item(
+                        R.drawable.ic_setting,
+                        "Cài đặt",
+                        ContextCompat.getColor(requireContext(), R.color.Blue)
+                    )
+                )
+            }
+            settingsAdapter.notifyItemInserted(menuItems.lastIndex)
+        }
 
         binding.btnLoginRegister.setOnClickListener {
             startActivity(Intent(requireContext(), AuthActivity::class.java))
@@ -143,16 +155,6 @@ class SettingsFragment : BaseFragment() {
             )
         ).toMutableList()
 
-        authViewModel.user.observe(viewLifecycleOwner) { user ->
-            if (user != null)
-                menuItems.add(
-                    MenuItem.Item(
-                        R.drawable.ic_setting,
-                        "Cài đặt",
-                        ContextCompat.getColor(context, R.color.Blue)
-                    )
-                )
-        }
     }
 
 
@@ -176,13 +178,10 @@ class SettingsFragment : BaseFragment() {
     private fun listItemClicked(selectedItem: MenuItem) {
         if (selectedItem is MenuItem.Item) {
             if (selectedItem.title == "Địa chỉ") {
-                findNavController().navigate(R.id.action_settingsFragment_to_deliveryAddressFragment)
+                navigateToPage(R.id.action_settingsFragment_to_deliveryAddressFragment)
+            } else if (selectedItem.title == "Cài đặt") {
+                navigateToPage(R.id.action_settingsFragment_to_settingFragment)
             }
-            Toast.makeText(
-                requireContext(),
-                "Selected name is ${selectedItem.title}",
-                Toast.LENGTH_LONG
-            ).show()
         }
     }
 }

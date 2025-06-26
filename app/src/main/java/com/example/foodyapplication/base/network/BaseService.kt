@@ -1,5 +1,6 @@
 package com.example.foodyapplication.base.network
 
+import android.util.Log
 
 
 abstract class BaseService {
@@ -19,6 +20,7 @@ abstract class BaseService {
     }
 
     protected fun parseNetworkErrorException(throwable: Throwable): NetworkErrorException {
+        Log.d("MyApp",throwable.message.toString())
         return NetworkErrorException(throwable.message)
     }
 

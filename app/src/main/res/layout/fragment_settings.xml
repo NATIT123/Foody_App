@@ -15,15 +15,17 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <!-- Header -->
             <RelativeLayout
+                android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:background="@color/shopee_orange"
                 android:padding="16dp">
 
@@ -65,9 +67,9 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerMenu"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/header"
                 android:layout_marginTop="8dp"
-                android:layout_weight="1"
                 android:background="@android:color/white"
                 android:nestedScrollingEnabled="false" />
 
@@ -75,6 +77,7 @@
                 android:id="@+id/btnLogout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/recyclerMenu"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="10dp"
@@ -87,10 +90,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/btnLogout"
                 android:gravity="center"
                 android:padding="8dp"
                 android:text="Phiên bản 7.45.0\nFoody Corporation"
                 android:textSize="12sp" />
-        </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
 </layout>

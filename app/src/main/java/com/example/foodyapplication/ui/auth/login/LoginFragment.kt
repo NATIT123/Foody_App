@@ -55,7 +55,7 @@ class LoginFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.tvForgotPassword.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
+            navigateToPage(R.id.action_loginFragment_to_forgotPasswordFragment)
         }
 
         viewModel.loginUserSuccess.observe(viewLifecycleOwner, EventObserver { isSuccess ->

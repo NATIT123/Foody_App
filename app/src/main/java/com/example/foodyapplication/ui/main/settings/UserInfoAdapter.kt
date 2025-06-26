@@ -7,10 +7,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodyapplication.R
+import com.example.foodyapplication.data.models.SettingItem
 import com.example.foodyapplication.data.models.UserInfoItem
+import com.example.foodyapplication.databinding.ItemUserInfoHeaderBinding
 
 class UserInfoAdapter(
-    private val items: List<UserInfoItem>
+    private val items: List<UserInfoItem>,
+    private val onItemClick: (UserInfoItem) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -27,9 +30,10 @@ class UserInfoAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == TYPE_HEADER) {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_user_info_header, parent, false)
-            HeaderViewHolder(view)
+            val binding = ItemUserInfoHeaderBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+            HeaderViewHolder(binding)
         } else {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_user_info_field, parent, false)
@@ -41,19 +45,18 @@ class UserInfoAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = items[position]) {
-            is UserInfoItem.Header -> (holder as HeaderViewHolder).bind(item)
-            is UserInfoItem.Field -> (holder as FieldViewHolder).bind(item)
+            is UserInfoItem.Header -> (holder as HeaderViewHolder).bind(item, onItemClick)
+            is UserInfoItem.Field -> (holder as FieldViewHolder).bind(item, onItemClick)
         }
     }
 
-    inner class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val avatar: TextView = itemView.findViewById(R.id.avatar)
-        private val changeAvatar: TextView = itemView.findViewById(R.id.tvChangeAvatar)
+    inner class HeaderViewHolder(private val binding: ItemUserInfoHeaderBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: UserInfoItem.Header) {
-            avatar.text = item.username.take(2).lowercase()
-            changeAvatar.setOnClickListener {
-                // Show avatar picker
+        fun bind(item: UserInfoItem.Header, clickListener: (UserInfoItem) -> Unit) {
+            binding.avatarUrl = item.avatarUrl
+            binding.root.setOnClickListener {
+                clickListener(item)
             }
         }
     }
@@ -63,13 +66,13 @@ class UserInfoAdapter(
         private val value: TextView = itemView.findViewById(R.id.tvValue)
         private val arrow: ImageView = itemView.findViewById(R.id.imageView)
 
-        fun bind(item: UserInfoItem.Field) {
+        fun bind(item: UserInfoItem.Field, clickListener: (UserInfoItem) -> Unit) {
             label.text = item.label
             value.text = item.value ?: "Cập nhật ngay"
             arrow.visibility = if (item.editable) View.VISIBLE else View.INVISIBLE
 
             itemView.setOnClickListener {
-                // Handle click to edit if editable
+                clickListener(item)
             }
         }
     }

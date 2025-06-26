@@ -6,9 +6,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodyapplication.R
+import com.example.foodyapplication.data.models.MenuItem
 import com.example.foodyapplication.data.models.SettingItem
 
-class SettingAdapter(private val items: List<SettingItem>) :
+class SettingAdapter(
+    private val items: List<SettingItem>,
+    private val onItemClick: (SettingItem) -> Unit
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -42,7 +46,7 @@ class SettingAdapter(private val items: List<SettingItem>) :
         if (holder is SectionViewHolder && item is SettingItem.Section) {
             holder.bind(item)
         } else if (holder is ItemViewHolder && item is SettingItem.Item) {
-            holder.bind(item)
+            holder.bind(item,onItemClick)
         }
     }
 
@@ -57,7 +61,7 @@ class SettingAdapter(private val items: List<SettingItem>) :
         private val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
         private val tvSubtitle: TextView = itemView.findViewById(R.id.tvSubtitle)
 
-        fun bind(item: SettingItem.Item) {
+        fun bind(item: SettingItem.Item, clickListener: (SettingItem) -> Unit) {
             tvTitle.text = item.title
             if (item.subtitle != null) {
                 tvSubtitle.visibility = View.VISIBLE
@@ -67,7 +71,7 @@ class SettingAdapter(private val items: List<SettingItem>) :
             }
 
             itemView.setOnClickListener {
-                // handle click
+                clickListener(item)
             }
         }
     }

@@ -50,7 +50,7 @@ class AuthViewModel @Inject constructor(
         parentJob = viewModelScope.launch(handler) {
             try {
                 userRepository.logOut()
-                _user.postValue(null)
+                clearUser()
                 tokenManager.clearToken()
                 _logoutSuccess.postValue(Event(true))
             } catch (e: Exception) {
@@ -59,5 +59,14 @@ class AuthViewModel @Inject constructor(
         }
         registerJobFinish()
     }
+
+    fun clearUser() {
+        _user.postValue(null)
+    }
+
+    fun setUser(user: User) {
+        _user.postValue(user)
+    }
+
 
 }

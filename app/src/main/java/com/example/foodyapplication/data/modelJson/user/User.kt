@@ -11,7 +11,7 @@ data class User(
     val fullname: String,
     val password: String,
     val phone: String,
-    val photo: String,
+    var photo: String,
     val refreshToken: String,
     val role: String,
     val type: String,
