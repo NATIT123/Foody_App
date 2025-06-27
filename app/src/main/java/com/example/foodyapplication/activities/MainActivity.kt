@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.searchFragment, R.id.detailFragment, R.id.deliveryAddressFragment,
                 R.id.addAddressFragment, R.id.userInfoFragment,
-                R.id.changePasswordFragment, R.id.settingFragment,R.id.forgotPasswordFragment2 -> {
+                R.id.changePasswordFragment, R.id.settingFragment, R.id.forgotPasswordFragment2, R.id.changeNameFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
 
@@ -90,6 +90,12 @@ class MainActivity : AppCompatActivity() {
     private fun goToLogin() {
         startActivity(Intent(this, AuthActivity::class.java))
         finish()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("MyApp", "Resume")
+        authViewModel.getInfoUser()
     }
 
 }

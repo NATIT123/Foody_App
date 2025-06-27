@@ -2,6 +2,7 @@ package com.example.foodyapplication.data.apis
 
 import com.example.foodyapplication.data.modelJson.user.DataLogin
 import com.example.foodyapplication.data.modelJson.user.DataPhoto
+import com.example.foodyapplication.data.modelJson.user.DataUpdate
 import com.example.foodyapplication.data.modelJson.user.DataUser
 import com.example.foodyapplication.data.modelJson.user.UserJson
 import com.example.foodyapplication.data.models.User
@@ -36,5 +37,11 @@ interface UserAPI {
     @POST("uploadPhoto")
     @Multipart
     suspend fun uploadPhoto(@Part image: MultipartBody.Part): Response<UserJson<DataPhoto>>
+
+    @PATCH("updateMe")
+    suspend fun updateMe(@Body user: User): Response<UserJson<String>>
+
+    @PATCH("forgotPassword")
+    suspend fun forgotPassword(): Response<UserJson<Unit>>
 
 }

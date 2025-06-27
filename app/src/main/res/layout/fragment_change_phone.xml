@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="authViewModel"
+            type="com.example.foodyapplication.ui.auth.common.AuthViewModel" />
+
+
+        <variable
+            name="settingsViewModel"
+            type="com.example.foodyapplication.ui.main.settings.SettingsViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp">
+
+            <TextView
+                android:id="@+id/tvLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:drawablePadding="10dp"
+                android:text="Phone"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/tvValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:onTextChanged="@{settingsViewModel::onPhoneChanged}"
+                android:text="@={settingsViewModel.currentUser.phone}"
+                android:textColor="@android:color/darker_gray" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Phone can not be empty"
+            android:textColor="@color/Red"
+            android:textSize="12sp"
+            android:visibility="@{settingsViewModel.currentUser.validatePhone ? View.GONE : View.VISIBLE}" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:alpha="@{settingsViewModel.currentUser.isValidatePhoneChanged(authViewModel.user.phone) ? 1.0f : 0.8f}"
+            android:background="@drawable/bg_login_rounded"
+            android:enabled="@{settingsViewModel.currentUser.isValidatePhoneChanged(authViewModel.user.phone)}"
+            android:onClick="@{() -> settingsViewModel.actionUpdateMe()}"
+            android:text='@{settingsViewModel.currentUser.isValidatePhoneChanged(authViewModel.user.phone) ? "Lưu" : "Tiếp tục"}' />
+    </LinearLayout>
+</layout>

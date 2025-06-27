@@ -62,8 +62,8 @@ class RegisterViewModel @Inject constructor(private val userRepository: UserRepo
     ) {
         val fullName = text?.toString()
         val user = currentUser.value
-        if (user?.fullName != fullName) {
-            user?.fullName = fullName
+        if (user?.fullname != fullName) {
+            user?.fullname = fullName
             _currentUser.postValue(user)
         }
     }

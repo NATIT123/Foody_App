@@ -86,4 +86,28 @@ class UserRepository @Inject constructor(
             }
         }
     }
+
+    suspend fun updateMe(user: User) = withContext(dispatcher) {
+        when (val result = userRemoteService.updateUser(user)) {
+            is NetworkResult.Success -> {
+                result.data
+            }
+
+            is NetworkResult.Error -> {
+                throw result.exception
+            }
+        }
+    }
+
+    suspend fun forgotPassword() = withContext(dispatcher) {
+        when (val result = userRemoteService.forgotPassword()) {
+            is NetworkResult.Success -> {
+                result.data
+            }
+
+            is NetworkResult.Error -> {
+                throw result.exception
+            }
+        }
+    }
 }

@@ -5,6 +5,7 @@ import com.example.foodyapplication.base.network.NetworkResult
 import com.example.foodyapplication.data.apis.UserAPI
 import com.example.foodyapplication.data.modelJson.user.DataLogin
 import com.example.foodyapplication.data.modelJson.user.DataPhoto
+import com.example.foodyapplication.data.modelJson.user.DataUpdate
 import com.example.foodyapplication.data.modelJson.user.DataUser
 import com.example.foodyapplication.data.modelJson.user.UserJson
 import com.example.foodyapplication.data.models.User
@@ -36,5 +37,13 @@ class UserRemoteService @Inject constructor(private val userAPI: UserAPI) : Base
 
     suspend fun uploadPhoto(photo: MultipartBody.Part): NetworkResult<UserJson<DataPhoto>> {
         return callApi { userAPI.uploadPhoto(photo) }
+    }
+
+    suspend fun updateUser(user: User): NetworkResult<UserJson<String>> {
+        return callApi { userAPI.updateMe(user) }
+    }
+
+    suspend fun forgotPassword(): NetworkResult<UserJson<Unit>> {
+        return callApi { userAPI.forgotPassword() }
     }
 }

@@ -65,10 +65,12 @@ class UserInfoAdapter(
         private val label: TextView = itemView.findViewById(R.id.tvLabel)
         private val value: TextView = itemView.findViewById(R.id.tvValue)
         private val arrow: ImageView = itemView.findViewById(R.id.imageView)
+        private val icon: ImageView = itemView.findViewById(R.id.iconLabel)
 
         fun bind(item: UserInfoItem.Field, clickListener: (UserInfoItem) -> Unit) {
             label.text = item.label
             value.text = item.value ?: "Cập nhật ngay"
+            icon.setImageResource(item.icon)
             arrow.visibility = if (item.editable) View.VISIBLE else View.INVISIBLE
 
             itemView.setOnClickListener {

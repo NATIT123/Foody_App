@@ -68,7 +68,7 @@
                     android:drawableStart="@drawable/ic_account"
                     android:drawablePadding="10dp"
                     android:onTextChanged="@{registerViewModel::onFullNameChanged}"
-                    android:text="@={registerViewModel.currentUser.fullName}" />
+                    android:text="@={registerViewModel.currentUser.fullname}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView

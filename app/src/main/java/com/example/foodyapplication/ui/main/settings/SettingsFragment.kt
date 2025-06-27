@@ -33,6 +33,8 @@ class SettingsFragment : BaseFragment() {
     private val authViewModel by activityViewModels<AuthViewModel>()
 
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,7 +54,7 @@ class SettingsFragment : BaseFragment() {
         loadData()
 
         authViewModel.user.observe(viewLifecycleOwner) { user ->
-            if (user != null) {
+            if (user != null ) {
                 menuItems.add(
                     MenuItem.Item(
                         R.drawable.ic_setting,

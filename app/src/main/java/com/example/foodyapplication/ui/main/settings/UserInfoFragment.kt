@@ -1,5 +1,6 @@
 package com.example.foodyapplication.ui.main.settings
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
@@ -57,13 +58,10 @@ class UserInfoFragment : BaseFragment() {
         val user = authViewModel.user.value!!
         val infoItems = listOf(
             UserInfoItem.Header(user.fullname, user.photo),
-            UserInfoItem.Field("Tên đăng nhập", user.fullname, false),
-            UserInfoItem.Field("Số điện thoại", user.phone),
-            UserInfoItem.Field("Tên", user.fullname),
-            UserInfoItem.Field("Email", user.email),
-            UserInfoItem.Field("Giới tính", user.fullname ?: "Cập nhật ngay"),
-            UserInfoItem.Field("Ngày sinh", user.fullname ?: "Cập nhật ngay"),
-            UserInfoItem.Field("Nghề nghiệp", user.fullname ?: "Cập nhật ngay")
+            UserInfoItem.Field(R.drawable.ic_phone, "Phone", user.phone),
+            UserInfoItem.Field(R.drawable.ic_account, "Full Name", user.fullname),
+            UserInfoItem.Field(R.drawable.ic_address, "Address", user.address),
+            UserInfoItem.Field(R.drawable.ic_email, "Email", user.email, false),
         )
         binding.recyclerUserInfo.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -94,18 +92,17 @@ class UserInfoFragment : BaseFragment() {
             viewLifecycleOwner,
             EventObserver { isSuccess ->
                 if (isSuccess) {
-                    val avatar = settingsViewModel.latestAvatarUrl
                     val currentUser = authViewModel.user.value
-                    if (avatar != null) {
-                        currentUser?.photo = avatar
-                        if (currentUser != null) {
+                    settingsViewModel.latestAvatarUrl?.observe(viewLifecycleOwner) { avatarUrl ->
+                        Log.d("MyApp", "img:$avatarUrl")
+                        if (!avatarUrl.isNullOrEmpty() && currentUser != null) {
+                            currentUser.photo = avatarUrl
                             authViewModel.setUser(currentUser)
-                            findNavController().popBackStack()
                         }
                     }
-
                 }
-            })
+            }
+        )
     }
 
     private fun showChangeAvatarBottomSheet() {
@@ -135,6 +132,13 @@ class UserInfoFragment : BaseFragment() {
 
     private fun listItemClicked(selectedItem: UserInfoItem) {
         if (selectedItem is UserInfoItem.Field) {
+            if (selectedItem.label == "Full Name") {
+                navigateToPage(R.id.action_userInfoFragment_to_changeNameFragment)
+            } else if (selectedItem.label == "Phone") {
+                navigateToPage(R.id.action_userInfoFragment_to_changePhoneFragment)
+            } else if (selectedItem.label == "Address") {
+                navigateToPage(R.id.action_userInfoFragment_to_changeAddressFragment)
+            }
         }
 
         if (selectedItem is UserInfoItem.Header) {
@@ -154,6 +158,7 @@ class UserInfoFragment : BaseFragment() {
         )
     }
 
+    @SuppressLint("Recycle")
     private fun prepareFilePart(name: String, uri: Uri, context: Context): MultipartBody.Part {
         val contentResolver = context.contentResolver
         val inputStream = contentResolver.openInputStream(uri)!!

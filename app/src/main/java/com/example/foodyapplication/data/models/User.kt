@@ -4,7 +4,7 @@ package com.example.foodyapplication.data.models
 class User(
     val id: Long = -1,
     var email: String? = null,
-    var fullName: String? = null,
+    var fullname: String? = null,
     var phone: String? = null,
     var address: String? = null,
     var password: String? = null,
@@ -28,7 +28,7 @@ class User(
     }
 
     fun isValidateFullName(): Boolean {
-        return (fullName?.isNotEmpty() == true)
+        return (fullname?.isNotEmpty() == true)
     }
 
 
@@ -59,6 +59,21 @@ class User(
 
     fun isValidateDataRegister(): Boolean {
         return isValidateEmail() && isValidateFullName() && isValidatePhone() && isValidateAddress() && isValidatePassword() && isValidateConfirmPassword() && isMatchPasswordAndConfirmPassword()
+    }
+
+    fun isValidateNameChanged(currentFullName: String): Boolean {
+        return isValidateFullName() && fullname != currentFullName
+
+    }
+
+    fun isValidatePhoneChanged(currentPhone: String): Boolean {
+        return isValidatePhone() && phone != currentPhone
+
+    }
+
+    fun isValidateAddressChanged(currentAddress: String): Boolean {
+        return isValidateAddress() && address != currentAddress
+
     }
 
 }

@@ -85,7 +85,17 @@
     <fragment
         android:id="@+id/userInfoFragment"
         android:name="com.example.foodyapplication.ui.main.settings.UserInfoFragment"
-        android:label="UserInfoFragment" />
+        android:label="UserInfoFragment" >
+        <action
+            android:id="@+id/action_userInfoFragment_to_changeNameFragment"
+            app:destination="@id/changeNameFragment" />
+        <action
+            android:id="@+id/action_userInfoFragment_to_changePhoneFragment"
+            app:destination="@id/changePhoneFragment" />
+        <action
+            android:id="@+id/action_userInfoFragment_to_changeAddressFragment"
+            app:destination="@id/changeAddressFragment" />
+    </fragment>
     <fragment
         android:id="@+id/changePasswordFragment"
         android:name="com.example.foodyapplication.ui.main.changepassword.ChangePasswordFragment"
@@ -99,4 +109,16 @@
         android:name="com.example.foodyapplication.ui.auth.forgotpassword.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
+    <fragment
+        android:id="@+id/changeNameFragment"
+        android:name="com.example.foodyapplication.ui.main.settings.ChangeNameFragment"
+        android:label="ChangeNameFragment" />
+    <fragment
+        android:id="@+id/changePhoneFragment"
+        android:name="com.example.foodyapplication.ui.main.settings.ChangePhoneFragment"
+        android:label="ChangePhoneFragment" />
+    <fragment
+        android:id="@+id/changeAddressFragment"
+        android:name="com.example.foodyapplication.ui.main.settings.ChangeAddressFragment"
+        android:label="ChangeAddressFragment" />
 </navigation>
