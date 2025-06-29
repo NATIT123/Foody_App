@@ -110,4 +110,16 @@ class UserRepository @Inject constructor(
             }
         }
     }
+
+    suspend fun deleteMe() = withContext(dispatcher) {
+        when (val result = userRemoteService.deleteMe()) {
+            is NetworkResult.Success -> {
+                result.data
+            }
+
+            is NetworkResult.Error -> {
+                throw result.exception
+            }
+        }
+    }
 }

@@ -2,6 +2,11 @@ package com.example.foodyapplication.di
 
 import com.example.foodyapplication.BuildConfig
 import com.example.foodyapplication.base.network.AuthInterceptor
+import com.example.foodyapplication.data.apis.CategoryAPI
+import com.example.foodyapplication.data.apis.CityAPI
+import com.example.foodyapplication.data.apis.NotificationAPI
+import com.example.foodyapplication.data.apis.RestaurantAPI
+import com.example.foodyapplication.data.apis.SubCategoryAPI
 import com.example.foodyapplication.data.apis.UserAPI
 import com.google.gson.GsonBuilder
 import com.squareup.moshi.Moshi
@@ -25,7 +30,7 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideStackOverFlowApi(@Named("UserSite") retrofit: Retrofit): UserAPI {
+    fun provideUserApi(@Named("UserSite") retrofit: Retrofit): UserAPI {
         return retrofit.create(UserAPI::class.java)
     }
 
@@ -35,7 +40,6 @@ class NetworkModule {
     @Named("UserSite")
     fun provideRetrofitUserSite(
         okHttpClient: OkHttpClient,
-        moshiConverterFactory: MoshiConverterFactory,
         gsonConverterFactory: GsonConverterFactory
     ): Retrofit {
 
@@ -43,6 +47,106 @@ class NetworkModule {
             .baseUrl(BuildConfig.BASE_URL_USER)
             .client(okHttpClient)
             .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCityApi(@Named("CitySite") retrofit: Retrofit): CityAPI {
+        return retrofit.create(CityAPI::class.java)
+    }
+
+    @Provides
+    @Singleton
+    @Named("CitySite")
+    fun provideRetrofitCitySite(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+
+        return Retrofit.Builder().addConverterFactory(gsonConverterFactory)
+            .baseUrl(BuildConfig.BASE_URL)
+            .client(okHttpClient)
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCategoryApi(@Named("CategorySite") retrofit: Retrofit): CategoryAPI {
+        return retrofit.create(CategoryAPI::class.java)
+    }
+
+    @Provides
+    @Singleton
+    @Named("CategorySite")
+    fun provideRetrofitCategorySite(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+
+        return Retrofit.Builder().addConverterFactory(gsonConverterFactory)
+            .baseUrl(BuildConfig.BASE_URL)
+            .client(okHttpClient)
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    @Named("NotificationSite")
+    fun provideRetrofitNotificationSite(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+
+        return Retrofit.Builder().addConverterFactory(gsonConverterFactory)
+            .baseUrl(BuildConfig.BASE_URL)
+            .client(okHttpClient)
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideNotificationApi(@Named("NotificationSite") retrofit: Retrofit): NotificationAPI {
+        return retrofit.create(NotificationAPI::class.java)
+    }
+
+    @Provides
+    @Singleton
+    @Named("SubCategorySite")
+    fun provideRetrofitSubCategorySite(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+
+        return Retrofit.Builder().addConverterFactory(gsonConverterFactory)
+            .baseUrl(BuildConfig.BASE_URL)
+            .client(okHttpClient)
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideSubCategoryApi(@Named("SubCategorySite") retrofit: Retrofit): SubCategoryAPI {
+        return retrofit.create(SubCategoryAPI::class.java)
+    }
+
+    @Provides
+    @Singleton
+    @Named("RestaurantSite")
+    fun provideRetrofitRestaurantSite(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+
+        return Retrofit.Builder().addConverterFactory(gsonConverterFactory)
+            .baseUrl(BuildConfig.BASE_URL)
+            .client(okHttpClient)
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideRestaurantApi(@Named("RestaurantSite") retrofit: Retrofit): RestaurantAPI {
+        return retrofit.create(RestaurantAPI::class.java)
     }
 
 

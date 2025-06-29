@@ -46,4 +46,8 @@ class UserRemoteService @Inject constructor(private val userAPI: UserAPI) : Base
     suspend fun forgotPassword(): NetworkResult<UserJson<Unit>> {
         return callApi { userAPI.forgotPassword() }
     }
+
+    suspend fun deleteMe():NetworkResult<UserJson<Unit>>{
+        return callApi { userAPI.deleteMe() }
+    }
 }

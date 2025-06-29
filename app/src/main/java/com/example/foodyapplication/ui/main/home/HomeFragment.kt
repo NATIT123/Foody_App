@@ -10,38 +10,73 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.foodyapplication.R
+import com.example.foodyapplication.data.modelJson.category.Category
+import com.example.foodyapplication.data.modelJson.city.City
 import com.example.foodyapplication.data.models.MenuItem
 import com.example.foodyapplication.data.models.PromoIcon
 import com.example.foodyapplication.databinding.FragmentHomeBinding
+import com.example.foodyapplication.ui.auth.common.AuthViewModel
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var icons: List<PromoIcon>
     private lateinit var iconPagerAdapter: IconPagerAdapter
 
-    private val cities = listOf("TP. HCM", "Hà Nội", "Đà Nẵng")
-    private val categories = listOf("Món Việt", "Món Hàn", "Ăn vặt", "Nước uống")
+    private var cities: List<City>? = null
+    private var categories: List<Category>? = null
+
+    private val homeViewModel by activityViewModels<HomeViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        homeViewModel.getAllCities()
+        homeViewModel.getAllCategories()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.homeViewModel = homeViewModel
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        homeViewModel.currentCities.observe(viewLifecycleOwner) { cities ->
+            this.cities = cities
+            if (cities?.isNotEmpty() == true) {
+                val cityAdapter =
+                    ArrayAdapter(
+                        requireContext(),
+                        android.R.layout.simple_spinner_item,
+                        cities.map { it.displayName })
+                cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.spinnerCity.adapter = cityAdapter
+            }
+        }
+
+        homeViewModel.currentCategories.observe(viewLifecycleOwner) { categories ->
+            this.categories = categories
+            if (categories?.isNotEmpty() == true) {
+                val categoryAdapter =
+                    ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categories.map { it.name })
+                categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.spinnerCategory.adapter = categoryAdapter
+            }
+
+        }
 
         loadData()
 
@@ -120,16 +155,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupSpinners() {
-        val cityAdapter =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, cities)
-        cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spinnerCity.adapter = cityAdapter
-
-        val categoryAdapter =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categories)
-        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spinnerCategory.adapter = categoryAdapter
-
         binding.spinnerCity.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
@@ -137,7 +162,11 @@ class HomeFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                Toast.makeText(requireContext(), "City: ${cities[position]}", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    requireContext(),
+                    "City: ${cities?.get(position)}",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
 
@@ -154,7 +183,7 @@ class HomeFragment : Fragment() {
                 ) {
                     Toast.makeText(
                         requireContext(),
-                        "Category: ${categories[position]}",
+                        "Category: ${categories?.get(position)}",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

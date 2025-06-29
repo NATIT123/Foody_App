@@ -10,6 +10,7 @@ import com.example.foodyapplication.data.models.UserPassword
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.PATCH
@@ -18,7 +19,6 @@ import retrofit2.http.Part
 
 
 interface UserAPI {
-
     @POST("login")
     suspend fun login(@Body user: User): Response<UserJson<DataLogin>>
 
@@ -43,5 +43,9 @@ interface UserAPI {
 
     @PATCH("forgotPassword")
     suspend fun forgotPassword(): Response<UserJson<Unit>>
+
+    @DELETE("deleteMe")
+    suspend fun deleteMe(): Response<UserJson<Unit>>
+
 
 }

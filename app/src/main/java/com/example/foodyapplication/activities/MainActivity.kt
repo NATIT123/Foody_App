@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.searchFragment, R.id.detailFragment, R.id.deliveryAddressFragment,
                 R.id.addAddressFragment, R.id.userInfoFragment,
-                R.id.changePasswordFragment, R.id.settingFragment, R.id.forgotPasswordFragment2, R.id.changeNameFragment -> {
+                R.id.changePasswordFragment, R.id.settingFragment, R.id.forgotPasswordFragment2, R.id.changeNameFragment, R.id.changeAddressFragment, R.id.changePhoneFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
 

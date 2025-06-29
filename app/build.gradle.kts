@@ -34,6 +34,11 @@ android {
             applicationIdSuffix = ".dev"
             buildConfigField(
                 "String",
+                "BASE_URL",
+                "\"${apikeyProperties["BASE_URL_DEV"]}\""
+            )
+            buildConfigField(
+                "String",
                 "BASE_URL_IMAGE",
                 "\"${apikeyProperties["BASE_URL_IMAGE_DEV"]}\""
             )
@@ -57,6 +62,11 @@ android {
             applicationIdSuffix = ".staging"
             buildConfigField(
                 "String",
+                "BASE_URL",
+                "\"${apikeyProperties["BASE_URL_STAGING"]}\""
+            )
+            buildConfigField(
+                "String",
                 "BASE_URL_USER",
                 "\"${apikeyProperties["BASE_URL_USER_STAGING"]}\""
             )
@@ -78,6 +88,11 @@ android {
         }
         create("live") {
             applicationIdSuffix = ".live"
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"${apikeyProperties["BASE_URL_LIVE"]}\""
+            )
             buildConfigField(
                 "String",
                 "BASE_URL_USER",
