@@ -22,9 +22,10 @@ import com.example.foodyapplication.data.models.UserPassword
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
-class NotificationRemoteService @Inject constructor(private val notificationAPI: NotificationAPI) : BaseRemoteService() {
+class NotificationRemoteService @Inject constructor(private val notificationAPI: NotificationAPI) :
+    BaseRemoteService() {
 
-    suspend fun getAllNotificationsByUser(): NetworkResult<NotificationJson<DataNotification>> {
-        return callApi { notificationAPI.getAllNotificationsByUser() }
+    suspend fun getAllNotificationsByUser(userId: String): NetworkResult<NotificationJson<DataNotification>> {
+        return callApi { notificationAPI.getAllNotificationsByUser(userId) }
     }
 }

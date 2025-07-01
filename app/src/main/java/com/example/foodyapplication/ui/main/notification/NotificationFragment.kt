@@ -5,21 +5,33 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodyapplication.R
 import com.example.foodyapplication.data.models.NotificationItem
 import com.example.foodyapplication.databinding.FragmentNotificationBinding
+import com.example.foodyapplication.ui.auth.common.AuthViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class NotificationFragment : Fragment() {
 
     private lateinit var binding: FragmentNotificationBinding
     private lateinit var notificationAdapter: NotificationAdapter
     private lateinit var listNotifications: List<NotificationItem>
 
+    private val authViewModel by activityViewModels<AuthViewModel>()
+
+    private val notificationViewModel by viewModels<NotificationViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (authViewModel.user.value != null) {
+            notificationViewModel.getNotificationsByUser(authViewModel.user.value!!._id)
+        }
 
     }
 

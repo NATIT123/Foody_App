@@ -18,8 +18,8 @@ class NotificationRepository @Inject constructor(
     @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) {
 
-    suspend fun getAllNotificationsByUser() = withContext(dispatcher) {
-        when (val result = notificationRemoteService.getAllNotificationsByUser()) {
+    suspend fun getAllNotificationsByUser(userId: String) = withContext(dispatcher) {
+        when (val result = notificationRemoteService.getAllNotificationsByUser(userId)) {
             is NetworkResult.Success -> {
                 result.data
             }

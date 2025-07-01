@@ -12,4 +12,8 @@ object DataLocal {
     const val RESTAURANT_PREFIX = "restaurant"
     const val SUBCATEGORY_PREFIX = "subCategory"
     const val FAVORITE_RESTAURANT_PREFIX = "favorite"
+    const val DISTRICT_PREFIX = "district"
+    const val ALBUM_PREFIX = "album"
+    const val COMMENT_PREFIX = "comment"
+    const val PAYMENT_PREFIX = "payment"
 }
