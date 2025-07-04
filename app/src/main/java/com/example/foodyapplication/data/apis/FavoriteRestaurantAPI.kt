@@ -32,19 +32,12 @@ interface FavoriteRestaurantAPI {
 //            @Body body: UpdateFavoriteRequest
 //        ): Response<FavoriteJson<DataFavorite>>
 
-        @GET("${DataLocal.FAVORITE_RESTAURANT_PREFIX}/getFavoriteRestaurant/{id}")
-        suspend fun getFavoriteRestaurantById(
-            @Path("id") id: String
-        ): Response<FavoriteJson<DataFavorite>>
 
         @POST("${DataLocal.FAVORITE_RESTAURANT_PREFIX}/getFavoriteRestaurantByUserId/{userId}")
         suspend fun getFavoriteRestaurantByUserId(
             @Path("userId") userId: String
         ): Response<FavoriteJson<DataFavorite>>
 
-        @GET("${DataLocal.FAVORITE_RESTAURANT_PREFIX}/getSavedRestaurantByUserId/{userId}")
-        suspend fun getSavedRestaurantByUserId(
-            @Path("userId") userId: String
-        ): Response<FavoriteJson<DataFavorite>>
+
     }
 
